@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Available Foods</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ===================== NAVBAR ===================== */
+        .header {
+            background: linear-gradient(135deg, #198754 0%, #145a3f 100%);
+            color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(25, 135, 84, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .header nav a {
+            color: white;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .header nav a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .header nav span {
+            color: white;
+            margin-left: 25px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .foods-container {
+            background-color: white;
+            width: 90%;
+            max-width: 1000px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+            text-align: left;
+            margin: 50px auto;
+        }
+
+        .foods-container h1 {
+            text-align: center;
+            color: #198754;
+            margin-bottom: 30px;
+            font-size: 60px;
+        }
+
+        .food-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .food-info h3 {
+            color: #198754;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .food-info p {
+            margin: 8px 0;
+            color: #333;
+            text-align: left;
+        }
+
+        .food-status {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .status-available {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-ordered {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #146c43;
+        }
+
+        .no-foods {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #146c43;
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">🍲 FoodDonate</div>
+        <nav>
+            <a href="/">Home</a>
+            {% if request.session.get('user') %}
+                <a href="/donate-page">Donate</a>
+                <a href="/foods-page">Foods</a>
+                <span>{{ request.session.get('user') }}</span>
+                <a href="/logout" style="margin-left: 25px; background-color: rgba(255, 255, 255, 0.2); padding: 8px 15px;">Logout</a>
+            {% else %}
+                <a href="/login-page">Donate</a>
+                <a href="/login-page">Foods</a>
+                <a href="/login-page">Login</a>
+                <a href="/register-page">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="foods-container">
+
+        <h1>
+            Available Foods
+        </h1>
+
+        {% if foods %}
+            {% for food in foods %}
+                <div class="food-card">
+                    <div class="food-info">
+                        <h3>{{ food.food }}</h3>
+                        <p><strong>Donor:</strong> {{ food.donor }}</p>
+                        <p><strong>Quantity:</strong> {{ food.quantity }} kg</p>
+                        <p><strong>Location:</strong> {{ food.location }}</p>
+                        <p><strong>Phone:</strong> {{ food.phone }}</p>
+                    </div>
+                    <div class="food-status">
+                        <div class="status-badge {% if food.status == 'available' %}status-available{% else %}status-ordered{% endif %}">
+                            {{ food.status | capitalize }}
+                        </div>
+                        {% if food.status == 'available' %}
+                            <a 
+href="https://wa.me/919061084748?text=Hello%20I%20want%20to%20order%20{{ food.food_name }}"
+class="action-btn"
+style="
+display: inline-block;
+text-align: center;
+text-decoration: none;
+width: 100%;
+">
+
+    Order Now
+
+</a>
+                        {% else %}
+                            <button class="action-btn" disabled style="background-color: #ccc; cursor: not-allowed;">
+                                Request Sent
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-foods">
+                <p>No foods available at the moment. Be the first to donate!</p>
+                <a href="/donate-page" class="btn btn-primary" style="margin-top: 20px;">Donate Food</a>
+            </div>
+        {% endif %}
+
+        <div class="back-btn">
+            <a href="/"
+            class="btn btn-secondary">
+                Back Home
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
