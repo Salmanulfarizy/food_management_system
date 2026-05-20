@@ -3,6 +3,8 @@
 
 <head>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 
     <link
@@ -93,16 +95,17 @@
         /* ===================== FORM INPUTS ===================== */
         input {
             width: 100%;
-            padding: 14px 16px;
-            margin-top: 15px;
+            padding: 12px 14px;
+            margin-top: 12px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: clamp(14px, 2vw, 16px);
             outline: none;
             transition: all 0.3s ease;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
+            min-height: 44px;
         }
 
         input::placeholder {
@@ -124,18 +127,20 @@
         /* ===================== BUTTONS ===================== */
         button {
             width: 100%;
-            padding: 14px;
-            margin-top: 25px;
+            padding: 12px;
+            margin-top: 20px;
             background-color: #198754;
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: clamp(14px, 2vw, 16px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            min-height: 44px;
+            touch-action: manipulation;
         }
 
         button::before {
@@ -220,28 +225,69 @@
         /* ===================== RESPONSIVE ===================== */
         @media (max-width: 768px) {
             .container {
-                padding: 40px 30px;
+                padding: 30px 24px;
                 max-width: 100%;
+                border-radius: 10px;
             }
 
             .container h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
 
             input {
-                padding: 12px 14px;
-                font-size: 15px;
+                padding: 11px 12px;
+                font-size: 14px;
+                margin-top: 10px;
+                min-height: 42px;
             }
 
             button {
-                padding: 12px;
-                font-size: 15px;
+                padding: 11px;
+                font-size: 14px;
+                margin-top: 15px;
+                min-height: 42px;
             }
 
             .btn {
-                padding: 10px 16px;
-                font-size: 14px;
                 width: calc(100% - 32px);
+                padding: 10px 14px;
+                font-size: 13px;
+                margin-top: 10px;
+                min-height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 18px;
+                max-width: 100%;
+                border-radius: 8px;
+            }
+
+            .container h1 {
+                font-size: 26px;
+            }
+
+            input {
+                padding: 10px 10px;
+                font-size: 13px;
+                margin-top: 8px;
+                min-height: 40px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 13px;
+                margin-top: 12px;
+                min-height: 40px;
+            }
+
+            .btn {
+                width: calc(100% - 24px);
+                padding: 9px 12px;
+                font-size: 12px;
+                margin-top: 7px;
+                min-height: 38px;
             }
         }
     </style>

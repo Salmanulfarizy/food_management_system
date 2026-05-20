@@ -3,6 +3,8 @@
 
 <head>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Donation Home</title>
 
     <link
@@ -36,7 +38,7 @@
         .header {
             background: linear-gradient(135deg, #198754 0%, #145a3f 100%);
             color: white;
-            padding: 20px 50px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,23 +46,35 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
+            white-space: nowrap;
+            margin-right: auto;
+        }
+
+        .header nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .header nav a {
             color: white;
-            margin-left: 25px;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s ease;
             padding: 8px 12px;
             border-radius: 6px;
             position: relative;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .header nav a:hover {
@@ -69,9 +83,17 @@
             transform: translateY(-2px);
         }
 
+        .header nav span {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 8px 12px;
+        }
+
         /* ===================== HERO SECTION ===================== */
         .hero {
-            height: 80vh;
+            min-height: 70vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -79,6 +101,7 @@
             background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 50%, #f0f7ff 100%);
             position: relative;
             overflow: hidden;
+            padding: 40px 20px;
         }
 
         .hero::before {
@@ -96,23 +119,26 @@
             position: relative;
             z-index: 1;
             animation: fadeInUp 0.8s ease-out;
+            max-width: 900px;
         }
 
         .hero-content h1 {
-            font-size: 60px;
+            font-size: clamp(32px, 8vw, 60px);
             color: #198754;
             margin-bottom: 20px;
             font-weight: 700;
             letter-spacing: -1px;
             line-height: 1.2;
+            word-wrap: break-word;
         }
 
         .hero-content p {
-            font-size: 22px;
+            font-size: clamp(16px, 4vw, 22px);
             color: #555;
             margin-bottom: 40px;
             line-height: 1.6;
             font-weight: 500;
+            word-wrap: break-word;
         }
 
         .hero-content .btn-success {
@@ -167,22 +193,23 @@
         .features {
             width: 100%;
             max-width: 1400px;
-            margin: 80px auto;
+            margin: 60px auto;
             padding: 20px;
         }
 
         .features .row {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         .feature-box {
             background: white;
-            width: 300px;
-            min-height: 380px;
-            padding: 35px 30px;
+            width: 100%;
+            max-width: 300px;
+            min-height: 340px;
+            padding: 30px 25px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -220,17 +247,19 @@
 
         .feature-box h3 {
             color: #198754;
-            font-size: 34px;
-            margin-bottom: 20px;
+            font-size: clamp(24px, 5vw, 34px);
+            margin-bottom: 15px;
             font-weight: 700;
+            word-wrap: break-word;
         }
 
         .feature-box p {
             color: #666;
-            font-size: 16px;
+            font-size: clamp(14px, 3vw, 16px);
             line-height: 1.7;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-weight: 500;
+            word-wrap: break-word;
         }
 
         .feature-box .btn {
@@ -246,6 +275,8 @@
             color: white !important;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .feature-box .btn::after {
@@ -331,55 +362,106 @@
     transform: scale(1.1);
 }
 
-        /* ===================== RESPONSIVE ===================== */
-        @media (max-width: 768px) {
+        /* ===================== RESPONSIVE DESIGN ===================== */
+        @media (max-width: 1024px) {
             .header {
-                padding: 15px 20px;
+                padding: 12px 15px;
             }
 
             .logo {
-                font-size: 24px;
+                font-size: 22px;
             }
 
             .header nav a {
-                margin-left: 15px;
-                font-size: 14px;
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            .showcase-section {
+                padding: 30px 15px;
+            }
+
+            .showcase-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+                gap: 8px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .header nav {
+                gap: 5px;
+            }
+
+            .header nav a {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+
+            .header nav span {
+                font-size: 12px;
+                padding: 6px 8px;
             }
 
             .hero {
-                height: 60vh;
+                min-height: 55vh;
+                padding: 30px 15px;
             }
 
             .hero-content h1 {
-                font-size: 42px;
+                font-size: 32px;
+                margin-bottom: 15px;
             }
 
             .hero-content p {
-                font-size: 18px;
+                font-size: 16px;
+                margin-bottom: 30px;
             }
 
-            .feature-box {
-                width: 100%;
-                max-width: 280px;
+            .hero-content .btn-success {
+                padding: 12px 30px !important;
+                font-size: 15px !important;
             }
 
             .features {
                 margin: 40px auto;
+                padding: 15px;
+            }
+
+            .features .row {
+                gap: 15px;
+            }
+
+            .feature-box {
+                max-width: 100%;
+                min-height: 300px;
+                padding: 25px 20px;
+            }
+
+            .feature-box h3 {
+                font-size: 22px;
+                margin-bottom: 12px;
+            }
+
+            .feature-box p {
+                font-size: 14px;
+                margin-bottom: 20px;
             }
 
             .showcase-section {
-                padding: 40px 20px;
+                padding: 25px 15px;
+                margin: 30px 0;
             }
 
             .showcase-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .showcase-image {
-                width: 100%;
-                max-width: 100%;
-                margin-top: 30px;
+                gap: 25px;
             }
 
             .showcase-content h2 {
@@ -389,13 +471,133 @@
             .showcase-content p {
                 font-size: 15px;
             }
+
+            .showcase-content li {
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 12px;
+                gap: 5px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .header nav {
+                gap: 4px;
+                justify-content: flex-end;
+                width: 100%;
+            }
+
+            .header nav a {
+                font-size: 11px;
+                padding: 5px 6px;
+                margin: 0 2px;
+            }
+
+            .header nav span {
+                font-size: 11px;
+                padding: 5px 6px;
+            }
+
+            .hero {
+                min-height: 50vh;
+                padding: 20px 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 26px;
+                margin-bottom: 12px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+
+            .hero-content .btn-success {
+                padding: 10px 25px !important;
+                font-size: 14px !important;
+            }
+
+            .features {
+                margin: 30px auto;
+                padding: 12px;
+            }
+
+            .features .row {
+                gap: 12px;
+            }
+
+            .feature-box {
+                max-width: 100%;
+                min-height: 280px;
+                padding: 20px 15px;
+            }
+
+            .feature-box h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .feature-box p {
+                font-size: 13px;
+                margin-bottom: 15px;
+            }
+
+            .feature-box .btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .showcase-section {
+                padding: 20px 12px;
+                margin: 25px 0;
+            }
+
+            .showcase-container {
+                gap: 20px;
+            }
+
+            .showcase-content h2 {
+                font-size: 22px;
+            }
+
+            .showcase-content p {
+                font-size: 13px;
+            }
+
+            .showcase-content li {
+                font-size: 12px;
+                padding-left: 25px;
+            }
+
+            .showcase-content li::before {
+                font-size: 16px;
+            }
+
+            .footer {
+                padding: 20px 12px;
+            }
+
+            .footer h5 {
+                font-size: 16px;
+            }
         }
 
         /* ===================== SHOWCASE SECTION ===================== */
         .showcase-section {
             width: 100%;
             background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
-            padding: 60px 50px;
+            padding: 40px 20px;
             margin: 40px 0;
             position: relative;
             overflow: hidden;
@@ -406,8 +608,8 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 500px;
-            height: 500px;
+            width: 300px;
+            height: 300px;
             background: radial-gradient(circle, rgba(25, 135, 84, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
@@ -418,30 +620,34 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 60px;
+            gap: 40px;
             position: relative;
             z-index: 1;
+            flex-wrap: wrap;
         }
 
         .showcase-content {
             flex: 1;
+            min-width: 280px;
             animation: slideInLeft 0.8s ease-out;
         }
 
         .showcase-content h2 {
-            font-size: 48px;
+            font-size: clamp(28px, 6vw, 48px);
             color: #198754;
             font-weight: 700;
             margin-bottom: 20px;
             line-height: 1.3;
+            word-wrap: break-word;
         }
 
         .showcase-content p {
-            font-size: 18px;
+            font-size: clamp(15px, 3vw, 18px);
             color: #555;
             line-height: 1.8;
             margin-bottom: 15px;
             font-weight: 500;
+            word-wrap: break-word;
         }
 
         .showcase-content ul {
@@ -451,12 +657,13 @@
         }
 
         .showcase-content li {
-            font-size: 16px;
+            font-size: clamp(14px, 2vw, 16px);
             color: #555;
             margin-bottom: 12px;
             padding-left: 30px;
             position: relative;
             font-weight: 500;
+            word-wrap: break-word;
         }
 
         .showcase-content li::before {
@@ -470,6 +677,7 @@
 
         .showcase-image {
             flex: 1;
+            min-width: 280px;
             text-align: center;
             animation: slideInRight 0.8s ease-out;
         }

@@ -3,27 +3,37 @@
 
 <head>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Available Foods</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
         }
 
         a {
             text-decoration: none;
+            color: inherit;
         }
 
         /* ===================== NAVBAR ===================== */
         .header {
             background: linear-gradient(135deg, #198754 0%, #145a3f 100%);
             color: white;
-            padding: 20px 50px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -31,23 +41,35 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             letter-spacing: 1px;
+            white-space: nowrap;
+            margin-right: auto;
+        }
+
+        .header nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .header nav a {
             color: white;
-            margin-left: 25px;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s ease;
             padding: 8px 12px;
             border-radius: 6px;
             position: relative;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .header nav a:hover {
@@ -58,27 +80,30 @@
 
         .header nav span {
             color: white;
-            margin-left: 25px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
+            white-space: nowrap;
+            padding: 8px 12px;
         }
 
+        /* ===================== FOODS CONTAINER ===================== */
         .foods-container {
             background-color: white;
-            width: 90%;
+            width: 95%;
             max-width: 1000px;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
             text-align: left;
-            margin: 50px auto;
+            margin: 30px auto;
         }
 
         .foods-container h1 {
             text-align: center;
             color: #198754;
             margin-bottom: 30px;
-            font-size: 60px;
+            font-size: clamp(32px, 6vw, 60px);
+            word-wrap: break-word;
         }
 
         .food-card {
@@ -90,18 +115,25 @@
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 20px;
+            word-wrap: break-word;
         }
 
         .food-info h3 {
             color: #198754;
             margin-bottom: 10px;
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .food-info p {
             margin: 8px 0;
             color: #333;
             text-align: left;
+            font-size: clamp(13px, 2vw, 16px);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
 
         .food-status {
@@ -112,10 +144,11 @@
         }
 
         .status-badge {
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 25px;
             font-weight: bold;
             margin-bottom: 10px;
+            font-size: clamp(12px, 2vw, 14px);
         }
 
         .status-available {
@@ -130,22 +163,35 @@
 
         .action-btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #198754;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
         .action-btn:hover {
             background-color: #146c43;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
         }
 
         .no-foods {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
             color: #666;
         }
 
@@ -157,22 +203,239 @@
         button {
             width: 100%;
             padding: 14px;
-            margin-top: 25px;
+            margin-top: 10px;
             background-color: #198754;
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            min-height: 45px;
+            font-weight: 600;
         }
 
         button:hover {
             background-color: #146c43;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn {
+            display: inline-block;
             margin-top: 10px;
+            padding: 12px 20px;
+            font-size: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            background-color: #198754;
+            color: white !important;
+            width: calc(100% - 40px);
+            box-sizing: border-box;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* ===================== RESPONSIVE DESIGN ===================== */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .header nav a {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            .foods-container {
+                padding: 25px 18px;
+                margin: 25px auto;
+            }
+
+            .food-card {
+                padding: 18px;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+                gap: 8px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .header nav {
+                gap: 5px;
+            }
+
+            .header nav a {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+
+            .header nav span {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+
+            .foods-container {
+                width: 95%;
+                padding: 20px 15px;
+                margin: 20px auto;
+                border-radius: 10px;
+            }
+
+            .foods-container h1 {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+
+            .food-card {
+                grid-template-columns: 1fr;
+                padding: 15px;
+                margin-bottom: 15px;
+                gap: 12px;
+            }
+
+            .food-info h3 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .food-info p {
+                font-size: 14px;
+                margin: 6px 0;
+            }
+
+            .food-status {
+                padding: 10px 0;
+            }
+
+            .status-badge {
+                padding: 8px 12px;
+                margin-bottom: 8px;
+            }
+
+            .action-btn {
+                padding: 11px;
+                font-size: 14px;
+                min-height: 42px;
+            }
+
+            .back-btn {
+                margin-top: 15px;
+            }
+
+            .btn {
+                width: calc(100% - 30px);
+                padding: 11px 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 12px;
+                gap: 5px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .header nav {
+                gap: 4px;
+            }
+
+            .header nav a {
+                font-size: 11px;
+                padding: 5px 6px;
+            }
+
+            .header nav span {
+                font-size: 11px;
+                padding: 5px 6px;
+            }
+
+            .foods-container {
+                width: 95%;
+                padding: 15px 12px;
+                margin: 15px auto;
+                border-radius: 8px;
+            }
+
+            .foods-container h1 {
+                font-size: 26px;
+                margin-bottom: 15px;
+            }
+
+            .food-card {
+                grid-template-columns: 1fr;
+                padding: 12px;
+                margin-bottom: 12px;
+                gap: 10px;
+            }
+
+            .food-info h3 {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+
+            .food-info p {
+                font-size: 13px;
+                margin: 4px 0;
+            }
+
+            .food-status {
+                padding: 8px 0;
+            }
+
+            .status-badge {
+                padding: 6px 10px;
+                margin-bottom: 6px;
+                font-size: 12px;
+            }
+
+            .action-btn {
+                padding: 10px;
+                font-size: 13px;
+                min-height: 40px;
+            }
+
+            .no-foods {
+                padding: 30px 15px;
+            }
+
+            .btn {
+                width: calc(100% - 24px);
+                padding: 10px 12px;
+                font-size: 13px;
+            }
         }
     </style>
 
@@ -221,14 +484,9 @@
                         </div>
                         {% if food.status == 'available' %}
                             <a 
-href="https://wa.me/919061084748?text=Hello%20I%20want%20to%20order%20{{ food.food_name }}"
+href="https://wa.me/{{ food.phone }}?text=Hello%20I%20would%20like%20to%20order%20{{ food.food }}.%20%0A%0ARequester%3A%20{{ request.session.get('user') }}%0AQuantity%3A%20{{ food.quantity }}%20kg%0ALocation%3A%20{{ food.location }}"
 class="action-btn"
-style="
-display: inline-block;
-text-align: center;
-text-decoration: none;
-width: 100%;
-">
+>
 
     Order Now
 
